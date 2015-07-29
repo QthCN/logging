@@ -58,7 +58,7 @@ func GetLogger(name string) Logger {
 	return l
 }
 
-func (l *Logger) record(level string, s string, file string, line int) {
+func (l *Logger) record(level string, s interface{}, file string, line int) {
 	for _, h := range l.handlers {
 		h.record(level, s, file, line)
 	}
@@ -67,7 +67,7 @@ func (l *Logger) record(level string, s string, file string, line int) {
 	}
 }
 
-func (l *Logger) Debug(s string) {
+func (l *Logger) Debug(s interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
@@ -77,7 +77,7 @@ func (l *Logger) Debug(s string) {
 	}
 }
 
-func (l *Logger) Info(s string) {
+func (l *Logger) Info(s interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
@@ -89,7 +89,7 @@ func (l *Logger) Info(s string) {
 	}
 }
 
-func (l *Logger) Warn(s string) {
+func (l *Logger) Warn(s interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
@@ -103,7 +103,7 @@ func (l *Logger) Warn(s string) {
 	}
 }
 
-func (l *Logger) Error(s string) {
+func (l *Logger) Error(s interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
