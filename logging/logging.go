@@ -4,17 +4,17 @@ import (
 	"runtime"
 )
 
-type logger struct {
+type Logger struct {
 	name     string
-	parent   *logger
+	parent   *Logger
 	handlers []handler
 }
 
-var rootLogger logger
+var rootLogger Logger
 var defaultLoggerLevel string
 
 func init() {
-	rootLogger = logger{
+	rootLogger = Logger{
 		"rootLogger",
 		nil,
 		make([]handler, 0, 5),
@@ -48,8 +48,8 @@ func SetLoggerLevel(level string) {
 	}
 }
 
-func GetLogger(name string) logger {
-	l := logger{
+func GetLogger(name string) Logger {
+	l := Logger{
 		name,
 		&rootLogger,
 		make([]handler, 0, 5),
@@ -58,7 +58,7 @@ func GetLogger(name string) logger {
 	return l
 }
 
-func (l *logger) record(level string, s string, file string, line int) {
+func (l *Logger) record(level string, s string, file string, line int) {
 	for _, h := range l.handlers {
 		h.record(level, s, file, line)
 	}
@@ -67,7 +67,7 @@ func (l *logger) record(level string, s string, file string, line int) {
 	}
 }
 
-func (l *logger) Debug(s string) {
+func (l *Logger) Debug(s string) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
@@ -77,7 +77,7 @@ func (l *logger) Debug(s string) {
 	}
 }
 
-func (l *logger) Info(s string) {
+func (l *Logger) Info(s string) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
@@ -89,7 +89,7 @@ func (l *logger) Info(s string) {
 	}
 }
 
-func (l *logger) Warn(s string) {
+func (l *Logger) Warn(s string) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
@@ -103,7 +103,7 @@ func (l *logger) Warn(s string) {
 	}
 }
 
-func (l *logger) Error(s string) {
+func (l *Logger) Error(s string) {
 	_, file, line, _ := runtime.Caller(1)
 	switch defaultLoggerLevel {
 	case "debug":
