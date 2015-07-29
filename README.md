@@ -4,7 +4,7 @@
 
 ## 简介
 
-logging是一个类似python logging模块的日志包，拥有基本的handler、父类继承关系等特性。提供了日志的相关操作。
+logging是一个类似python logging模块的日志包，拥有基本的handler、父类继承关系等特性。主要提供日志相关操作。
 
 ## 用法
 
